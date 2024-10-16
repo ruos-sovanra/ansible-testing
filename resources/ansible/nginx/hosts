@@ -1,0 +1,2 @@
+[web_servers]
+your_server_ip ansible_user=your_user

@@ -1,7 +1,0 @@
----
-- include_tasks: install.yml
-- name: Start Nginx service
-  service:
-    name: nginx
-    state: started
-    enabled: yes
