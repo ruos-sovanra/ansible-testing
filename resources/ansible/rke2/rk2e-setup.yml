@@ -1,19 +1,35 @@
 ---
-- name: Setup rk2e
+- name: Install RKE2
   hosts: all
   become: true
   tasks:
-    - name: Install rk2e dependencies
+    - name: Install dependencies
       apt:
         name: "{{ item }}"
         state: present
       loop:
         - curl
         - tar
+        - sudo
 
-    - name: Install rk2e
+    - name: Download RKE2
+      get_url:
+        url: https://github.com/rancher/rke2/releases/download/v1.21.7%2Brke2r1/rke2.linux-amd64.tar.gz
+        dest: /tmp/rke2.tar.gz
+
+    - name: Extract RKE2
+      unarchive:
+        src: /tmp/rke2.tar.gz
+        dest: /usr/local
+        remote_src: yes
+
+    - name: Install RKE2
       shell: |
-        wget https://example.com/rk2e.tar.gz
-        tar -xzf rk2e.tar.gz
-        cd rk2e
+        cd /usr/local/rke2
         ./install.sh
+
+    - name: Enable and start RKE2 service
+      systemd:
+        name: rke2-server
+        enabled: yes
+        state: started
