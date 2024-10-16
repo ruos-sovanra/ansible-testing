@@ -1,2 +1,2 @@
 [web_servers]
-your_server_ip ansible_user=your_user
+146.190.93.32 ansible_user=root
