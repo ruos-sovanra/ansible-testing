@@ -1,4 +1,4 @@
-def setupNginx() {
+def call() {
     println "Starting setupNginx function"
     sh "pwd"
 
