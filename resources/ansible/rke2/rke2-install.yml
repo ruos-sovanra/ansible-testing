@@ -1,0 +1,38 @@
+---
+- name: Install RKE2
+  hosts: web_servers  # Change to your appropriate group
+  become: yes
+  tasks:
+    - name: Download and install RKE2
+      shell: |
+        curl -sfL https://get.rke2.io | sh -
+      args:
+        warn: false
+
+    - name: Enable and start RKE2 service
+      systemd:
+        name: rke2-server
+        enabled: yes
+        state: started
+
+    - name: Copy kubeconfig to user's home directory
+      copy:
+        src: /etc/rancher/rke2/rke2.yaml
+        dest: /home/{{ ansible_user }}/.kube/config
+        owner: "{{ ansible_user }}"
+        mode: '0644'
+      when: ansible_user is defined
+
+    - name: Ensure the .kube directory exists
+      file:
+        path: /home/{{ ansible_user }}/.kube
+        state: directory
+        owner: "{{ ansible_user }}"
+        mode: '0700'
+      when: ansible_user is defined
+
+    - name: Install Calico network plugin
+      kubectl:
+        kubeconfig: /home/{{ ansible_user }}/.kube/config
+        state: present
+        definition: "{{ lookup('file', 'https://docs.projectcalico.org/manifests/calico.yaml') }}"
