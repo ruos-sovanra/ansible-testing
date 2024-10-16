@@ -1,0 +1,2 @@
+# Group variables for development
+nginx_port: 80

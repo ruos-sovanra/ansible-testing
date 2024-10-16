@@ -1,0 +1,5 @@
+---
+- name: Uninstall Nginx
+  apt:
+    name: nginx
+    state: absent
