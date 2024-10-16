@@ -1,14 +1,10 @@
-def call() {
-    // Print the current working directory
-    sh 'pwd'
+def setupNginx() {
+    println "Starting setupNginx function"
+    sh "pwd"
 
-    sh 'll'
-
-    // Specify the absolute path to your Ansible playbook for Nginx
-    def playbookFile = '/opt/jenkins/workspace/remote-ansible/ansible/playbooks/install_nginx.yml'
-
-    // Execute the Ansible playbook
-    sh """
-    ansible-playbook ${playbookFile}
-    """
+    println "Running Ansible playbook"
+    sh '''
+        ansible-playbook -i ansible/inventory/development ansible/roles/nginx/tasks/install.yml
+    '''
+    println "Finished setupNginx function"
 }
