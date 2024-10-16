@@ -8,8 +8,8 @@
         name: "{{ item }}"
         state: present
       loop:
-        - dependency1
-        - dependency2
+        - curl
+        - tar
 
     - name: Install rk2e
       shell: |
