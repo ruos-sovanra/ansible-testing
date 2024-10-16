@@ -1,0 +1,19 @@
+---
+- name: Setup rk2e
+  hosts: all
+  become: true
+  tasks:
+    - name: Install rk2e dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - dependency1
+        - dependency2
+
+    - name: Install rk2e
+      shell: |
+        wget https://example.com/rk2e.tar.gz
+        tar -xzf rk2e.tar.gz
+        cd rk2e
+        ./install.sh
