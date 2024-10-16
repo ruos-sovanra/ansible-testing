@@ -2,7 +2,7 @@ def call() {
     // Print the current working directory
     sh 'pwd'
 
-    sh 'ls -lrt'
+    sh 'll'
 
     // Specify the absolute path to your Ansible playbook for Nginx
     def playbookFile = '/opt/jenkins/workspace/remote-ansible/ansible/playbooks/install_nginx.yml'
