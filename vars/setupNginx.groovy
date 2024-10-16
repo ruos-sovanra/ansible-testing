@@ -4,7 +4,7 @@ def call() {
 
     println "Running Ansible playbook"
 
-    sh "ansible-playbook -i inventory/hosts playbooks/nginx.yml"
+    sh "ansible-playbook -i ansible/inventory/development ansible/playbooks/install_nginx.yml"
 
     println "Finished setupNginx function"
 }
