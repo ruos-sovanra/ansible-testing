@@ -6,6 +6,8 @@ class NginxExecutor {
         def extraVarsString = extraVars.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def command = "ansible-playbook ${playbook} -i ${inventoryFile} ${extraVarsString}"
 
+        println "Command to execute: ${command}"
+
         try {
             println "Executing Ansible Playbook: ${playbook}"
             def process = command.execute()
