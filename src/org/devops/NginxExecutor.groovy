@@ -20,4 +20,12 @@ class NginxExecutor {
             throw e
         }
     }
+
+    static void installNginx() {
+        runNginxPlaybook('resources/ansible/playbooks/install_nginx.yml')
+    }
+
+    static void uninstallNginx() {
+        runNginxPlaybook('resources/ansible/roles/nginx/tasks/uninstall.yml')
+    }
 }
