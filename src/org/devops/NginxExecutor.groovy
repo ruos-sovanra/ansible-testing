@@ -9,7 +9,8 @@ class NginxExecutor {
         }
 
         def extraVarsString = extraVars.collect { k, v -> "-e ${k}=${v}" }.join(' ')
-        def command = "ansible-playbook ${playbook} -i ${inventoryFile} ${extraVarsString}"
+//         def command = "ansible-playbook ${playbook} -i ${inventoryFile} ${extraVarsString}"
+ def command = "ansible-playbook playbooks/install_nginx.yml -i inventory/hosts"
 
         try {
             println "Executing Ansible Playbook: ${playbook}"
