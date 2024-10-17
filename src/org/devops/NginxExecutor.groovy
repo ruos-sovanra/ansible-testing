@@ -3,6 +3,11 @@ package org.devops
 class NginxExecutor {
 
     static void runPlaybook(String playbook, String inventoryFile = 'resources/ansible/nginx/hosts', Map<String, String> extraVars = [:]) {
+        def playbookFile = new File(playbook)
+        if (!playbookFile.exists()) {
+            throw new RuntimeException("Playbook file not found: ${playbook}")
+        }
+
         def extraVarsString = extraVars.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def command = "ansible-playbook ${playbook} -i ${inventoryFile} ${extraVarsString}"
 
