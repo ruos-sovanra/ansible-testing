@@ -1,7 +1,5 @@
 ---
 - hosts: nginx_servers
   become: yes
-  tasks:
-    - name: Ensure Nginx role is executed
-      import_role:
-        name: nginx
+  roles:
+    - nginx
