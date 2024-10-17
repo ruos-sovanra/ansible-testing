@@ -1,15 +1,40 @@
 ---
-- name: Install RKE2
-  shell: |
-    curl -sfL https://get.rke2.io | sh -
+- hosts: rke2_servers
+  become: yes
+  tasks:
+    - name: Install RKE2
+      shell: |
+        curl -sfL https://get.rke2.io | sh -
 
-- name: Enable and start RKE2 service
-  systemd:
-    name: rke2-server
-    enabled: yes
-    state: started
+    - name: Enable and start RKE2 service
+      systemd:
+        name: rke2-server
+        enabled: yes
+        state: started
 
-- name: Wait for RKE2 to start
-  wait_for:
-    port: 6443
-    timeout: 300
+    - name: Check RKE2 service status
+      command: systemctl status rke2-server
+      register: rke2_status
+      ignore_errors: yes
+
+    - debug:
+        var: rke2_status.stdout_lines
+
+    - name: Display RKE2 logs
+      command: journalctl -u rke2-server -n 50
+      register: rke2_logs
+      ignore_errors: yes
+
+    - debug:
+        var: rke2_logs.stdout_lines
+
+    - name: Wait for RKE2 to start
+      wait_for:
+        port: 6443
+        timeout: 300
+        state: started
+      register: wait_result
+      ignore_errors: yes
+
+    - debug:
+        msg: "RKE2 did not start within the expected time. Result: {{ wait_result }}"
