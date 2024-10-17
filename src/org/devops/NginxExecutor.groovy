@@ -4,6 +4,9 @@ class NginxExecutor {
 
     static void runNginxPlaybook(String playbook = 'resources/ansible/playbooks/install_nginx.yml', String inventoryFile = 'resources/ansible/inventory/hosts', Map<String, String> extraVars = [:]) {
         def workspace = System.getenv('WORKSPACE')
+        if (workspace == null) {
+            throw new RuntimeException("WORKSPACE environment variable is not set")
+        }
         def playbookPath = "${workspace}/${playbook}"
         def inventoryPath = "${workspace}/${inventoryFile}"
         def extraVarsString = extraVars.collect { k, v -> "-e ${k}=${v}" }.join(' ')
