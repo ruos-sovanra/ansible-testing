@@ -3,7 +3,7 @@ package org.devops
 class NginxExecutor {
 
     // Method to run the Ansible playbook with optional extra variables and debug flag
-    static void runPlaybook(String playbook, String inventoryFile = 'resources/ansible/inventory/hosts', Map<String, String> extraVars = [:], boolean debug = false) {
+    static void runPlaybook(String playbook, String inventoryFile = 'var/jenkins_home/workspaces/remote-ansible/resources/ansible/inventory/hosts', Map<String, String> extraVars = [:], boolean debug = false) {
         def playbookFile = new File(playbook)
         if (!playbookFile.exists()) {
             throw new RuntimeException("Playbook file not found: ${playbook}")
@@ -34,7 +34,7 @@ class NginxExecutor {
 
     // Method to install Nginx using the dedicated Ansible playbook
     static void installNginx(boolean debug = false) {
-        runPlaybook('resources/ansible/playbooks/install_nginx.yml', 'resources/ansible/inventory/hosts', [:], debug)
+        runPlaybook('var/jenkins_home/workspaces/remote-ansible/resources/ansible/playbooks/install_nginx.yml', 'var/jenkins_home/workspaces/remote-ansible/resources/ansible/inventory/hosts', [:], debug)
     }
 
     // Method to uninstall Nginx using the dedicated Ansible task
