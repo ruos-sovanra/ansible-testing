@@ -4,6 +4,7 @@ class NginxExecutor {
 
     static void runPlaybook(String playbook, String inventoryFile = 'resources/ansible/nginx/hosts', Map<String, String> extraVars = [:]) {
         def playbookFile = new File(playbook)
+        println("Playbook file: ${playbookFile}")
         if (!playbookFile.exists()) {
             throw new RuntimeException("Playbook file not found: ${playbook}")
         }
