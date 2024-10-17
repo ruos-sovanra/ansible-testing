@@ -1,9 +1,9 @@
 ---
-- name: Install and configure RKE2
+- name: Install RKE2
   hosts: all
   become: true
   tasks:
-    - name: Add RKE2 repository and install RKE2
+    - name: Add RKE2 repository
       shell: |
         curl -sfL https://get.rke2.io | sh -
       args:
@@ -16,21 +16,13 @@
         state: started
       notify: Restart RKE2 server
 
-    - name: Wait for RKE2 to be active
+    - name: Wait for RKE2 to be ready
       shell: |
         while ! systemctl is-active rke2-server; do sleep 1; done
       retries: 10
       delay: 5
       register: rke2_status
       until: rke2_status.rc == 0
-
-    - name: Ensure .kube directory exists
-      file:
-        path: /home/{{ ansible_user }}/.kube
-        state: directory
-        mode: '0755'
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
 
     - name: Copy kubeconfig to user home
       copy:
@@ -40,9 +32,3 @@
         mode: '0644'
       become: true
       become_user: "{{ ansible_user }}"
-
-  handlers:
-    - name: Restart RKE2 server
-      systemd:
-        name: rke2-server
-        state: restarted
