@@ -2,7 +2,7 @@ package org.devops
 
 class NginxExecutor {
 
-    static void runNginxPlaybook(String playbook = 'resources/ansible/playbooks/install_nginx.yml', String inventoryFile = 'resources/ansible/inventory/hosts', Map<String, String> extraVars = [:]) {
+    static void runNginxPlaybook(String playbook = '/opt/jenkins/workspace/remote-ansible/resources/ansible/playbooks/install_nginx.yml', String inventoryFile = 'resources/ansible/inventory/hosts', Map<String, String> extraVars = [:]) {
         def extraVarsString = extraVars.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def command = "ansible-playbook ${playbook} -i ${inventoryFile} ${extraVarsString}"
 
