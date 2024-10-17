@@ -1,8 +1,6 @@
-# ansible-nginx/playbooks/install_nginx.yml
 ---
-- name: Manage Nginx on localhost
-  hosts: localhost
+- name: Manage Nginx on remote server
+  hosts: 146.190.93.32
   become: yes
   roles:
     - nginx
-
