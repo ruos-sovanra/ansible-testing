@@ -3,5 +3,5 @@
   become: yes
   tasks:
     - name: Ensure Nginx role is executed
-      include_role:
+      import_role:
         name: nginx
