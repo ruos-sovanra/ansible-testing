@@ -7,10 +7,14 @@ class NginxExecutor {
         def command = "ansible-playbook ${playbook} -i ${inventoryFile} ${extraVarsString}"
 
         try {
-            echo "Executing Ansible Playbook: ${playbook}"
-            sh command
+            println "Executing Ansible Playbook: ${playbook}"
+            def process = command.execute()
+            process.waitForProcessOutput(System.out, System.err)
+            if (process.exitValue() != 0) {
+                throw new RuntimeException("Failed to execute Ansible Playbook: ${playbook}")
+            }
         } catch (Exception e) {
-            error "Failed to execute Ansible Playbook: ${e.message}"
+            throw new RuntimeException("Failed to execute Ansible Playbook: ${e.message}", e)
         }
     }
 
