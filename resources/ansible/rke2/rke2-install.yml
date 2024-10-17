@@ -18,9 +18,12 @@
 
     - name: Wait for RKE2 to be ready
       shell: |
-        while ! systemctl is-active rke2-server; do sleep 1; done
-      retries: 10
-      delay: 5
+        while ! systemctl is-active rke2-server; do
+          echo "Waiting for RKE2 server to be active..."
+          sleep 1
+        done
+      retries: 30
+      delay: 10
       register: rke2_status
       until: rke2_status.rc == 0
 
