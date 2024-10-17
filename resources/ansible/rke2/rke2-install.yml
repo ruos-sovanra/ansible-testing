@@ -28,6 +28,6 @@
         src: /etc/rancher/rke2/rke2.yaml
         dest: /home/{{ ansible_user }}/.kube/config
         remote_src: yes
+        mode: '0644'
       become: true
       become_user: "{{ ansible_user }}"
-      mode: '0644'
