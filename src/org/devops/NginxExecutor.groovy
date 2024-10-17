@@ -29,7 +29,7 @@ class NginxExecutor {
     }
 
     static void installNginx() {
-        runNginxPlaybook('resources/ansible/playbooks/install_nginx.yml')
+        runNginxPlaybook('/opt/jenkins/workspace/remote-ansible/resources/ansible/playbooks/install_nginx.yml')
     }
 
     static void uninstallNginx() {
