@@ -9,9 +9,16 @@ class NginxExecutor {
         try {
             println "Executing Ansible Playbook: ${playbook}"
             def process = command.execute()
-            process.waitForProcessOutput(System.out, System.err)
+            def output = new StringBuffer()
+            def error = new StringBuffer()
+            process.consumeProcessOutput(output, error)
+            process.waitFor()
+
+            println "Output: ${output}"
+            println "Error: ${error}"
+
             if (process.exitValue() != 0) {
-                throw new RuntimeException("Failed to execute Ansible Playbook: ${playbook}")
+                throw new RuntimeException("Failed to execute Ansible Playbook: ${playbook}\nError: ${error}")
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to execute Ansible Playbook: ${e.message}", e)
