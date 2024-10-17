@@ -2,8 +2,6 @@
 - name: Install RKE2
   shell: |
     curl -sfL https://get.rke2.io | sh -
-  args:
-    warn: false
 
 - name: Enable and start RKE2 service
   systemd:
