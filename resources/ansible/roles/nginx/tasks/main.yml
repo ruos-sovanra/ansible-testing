@@ -1,14 +1,2 @@
-# ansible-nginx/roles/nginx/tasks/main.yml
 ---
-- name: Debug install_nginx variable
-  debug:
-    msg: "install_nginx is set to {{ install_nginx }}"
-
-- name: Install Nginx if variable is set to true
-  include_tasks: install.yml
-  when: install_nginx | bool
-
-- name: Uninstall Nginx if variable is set to false
-  include_tasks: uninstall.yml
-  when: not install_nginx | bool
-
+- include: install.yml

@@ -1,6 +1,5 @@
 ---
-- name: Manage Nginx on remote server
-  hosts: 146.190.93.32
+- hosts: nginx_servers
   become: yes
   roles:
     - nginx
