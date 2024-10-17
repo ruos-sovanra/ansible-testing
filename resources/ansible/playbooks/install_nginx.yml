@@ -1,0 +1,8 @@
+# ansible-nginx/playbooks/install_nginx.yml
+---
+- name: Manage Nginx on localhost
+  hosts: localhost
+  become: yes
+  roles:
+    - nginx
+

@@ -1,0 +1,7 @@
+---
+- name: Manage RKE2 on localhost
+  hosts: localhost
+  become: yes
+  roles:
+    - rke2
+
