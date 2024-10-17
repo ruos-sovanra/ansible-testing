@@ -2,6 +2,8 @@
 - name: Install RKE2
   shell: |
     curl -sfL https://get.rke2.io | sh -
+  args:
+    warn: false
 
 - name: Enable and start RKE2 service
   systemd:
@@ -28,10 +30,6 @@
 - name: Wait for RKE2 to start
   wait_for:
     port: 6443
-    timeout: 300
+    timeout: 600  # Increase timeout if necessary
     state: started
-  register: wait_result
-  ignore_errors: yes
-
-- debug:
-    msg: "RKE2 did not start within the expected time. Result: {{ wait_result }}"
+  when: rke2_status.rc == 0  # Wait only if service is running
