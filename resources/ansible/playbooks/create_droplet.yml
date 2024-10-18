@@ -2,6 +2,8 @@
 - name: Create a DigitalOcean Droplet
   hosts: localhost
   gather_facts: no
+  vars_files:
+    - development.yml
   tasks:
     - name: Create a new Droplet
       community.digitalocean.digital_ocean_droplet:
