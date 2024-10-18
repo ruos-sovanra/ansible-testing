@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   vars_files:
-    - development.yml
+    - resources/ansible/group_vars/development.yml
   tasks:
     - name: Create a new Droplet
       community.digitalocean.digital_ocean_droplet:
