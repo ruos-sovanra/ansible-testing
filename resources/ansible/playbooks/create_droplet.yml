@@ -1,0 +1,19 @@
+---
+- name: Create a DigitalOcean Droplet
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create a new Droplet
+      community.digitalocean.droplet:
+        state: present
+        api_token: "dop_v1_b4e4475588c2b8b3d76e5e5a0d073a62c59dd2cb7e7549a3bc253851b3e74e13"
+        name: my-droplet
+        region: nyc3
+        size: s-1vcpu-1gb
+        image: ubuntu-20-04-x64
+        ssh_keys: ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRhV/doPbPwnl4x6bq8Qf59uffI6IUtslIVHVA+A/CHPEnz0P6vCGeEHtuuFInvHsBARbTS6OAYMU4k8oNxKcmShssUl53SmSM5KUd4myIVp7bPA7uIqFRULLsZv2QIum5E8vvYGGWErbrhaBvRZnnC05mk/41eO0JEMFo/TL/5TnsIJANkW2bpDRlAtLL1CxdbJf3Au/IIfclnYR9IF7u1WIwrcN/jr5js0RrevNCO7gxwm4HS4jFR65f+s8Jh68CMXmK6ATH5zemTVENjsoXsnIbMdvMhQWViEago/DILEF6hiyVWH4fHDPdkugNWnIIAIUYqz6EQN2X7bUg9jKR9BwDP6Oh5Z5g+fYgYZ4EZy5YwOgeVAxCIyoDo+ndH8o2LJe2S/qO+mpFYPghxjC8wBXH5zAryfa/xw78Mf7bEHpva3KeV+JPVUdSTpUCS9yEWJetFXKUFUxsB/G1w68Ma4QfR4qpFZ9wQHs1kB5TKeve/WEwDvZvkkKAEeDeclk= root@68a99eca4c70"]
+      register: droplet
+
+    - name: Output the Droplet IP address
+      debug:
+        msg: "Droplet IP address is {{ droplet.data.ip_address }}"
