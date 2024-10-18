@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: Create a new Droplet
-      community.digitalocean.droplet:
+      digitalocean_droplet:
         state: present
         api_token: "dop_v1_b4e4475588c2b8b3d76e5e5a0d073a62c59dd2cb7e7549a3bc253851b3e74e13"
         name: my-droplet
