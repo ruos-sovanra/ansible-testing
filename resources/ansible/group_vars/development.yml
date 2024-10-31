@@ -1,5 +1,0 @@
-install_nginx: false
-# ansible-nginx/group_vars/development.yml
-rke2_action: install  # Default value
-
-

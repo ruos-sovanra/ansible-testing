@@ -1,0 +1,9 @@
+---
+- name: Manage DigitalOcean Droplets
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - roles/droplet/vars/main.yml
+
+  roles:
+    - role: droplet

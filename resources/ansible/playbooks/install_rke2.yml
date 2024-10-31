@@ -1,5 +1,0 @@
----
-- hosts: rke2_servers
-  become: yes
-  roles:
-    - rke2

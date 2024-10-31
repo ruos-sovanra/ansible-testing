@@ -1,4 +1,0 @@
-[nginx_servers]
-146.190.93.32 ansible_user=root
-[rke2_servers]
-146.190.93.32 ansible_user=root
