@@ -8,7 +8,8 @@ def call(Map config = [:]) {
         dropletRegion: "nyc3",
         dropletSize: "s-1vcpu-1gb",
         dropletImage: "ubuntu-20-04-x64",
-        sshKeyName: "jenkins-ssh-key"
+        sshKeyName: "jenkins-ssh-key",
+        doApiToken: ""
     ]
 
     config = defaultConfig + config
@@ -18,6 +19,7 @@ def call(Map config = [:]) {
         droplet_region: config.dropletRegion,
         droplet_size: config.dropletSize,
         droplet_image: config.dropletImage,
-        ssh_key_name: config.sshKeyName
+        ssh_key_name: config.sshKeyName,
+        do_api_token: config.doApiToken
     ])
 }
