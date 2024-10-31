@@ -1,5 +1,7 @@
 package org.devops
 
+import groovy.json.JsonOutput
+
 class Ansible implements Serializable {
     def script
 
@@ -8,18 +10,13 @@ class Ansible implements Serializable {
     }
 
     def runPlaybook(String playbookPath, Map extraVars = [:]) {
-        def extraVarsString = extraVars.collect { k, v ->
-            if (k == 'do_api_token') {
-                return "${k}='${v}'"
-            } else {
-                return "${k}=${v}"
-            }
-        }.join(' ')
+        def extraVarsJson = JsonOutput.toJson(extraVars)
+        def extraVarsEscaped = extraVarsJson.replace('"', '\\"')
 
         script.sh """
             ansible-playbook ${playbookPath} \
             -i \${WORKSPACE}/resources/ansible/inventory.ini \
-            -e ${extraVarsString}
+            -e '${extraVarsEscaped}'
         """
     }
 }
